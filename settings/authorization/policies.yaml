@@ -1,0 +1,158 @@
+schemaVersion: 1.0.0
+
+policies:
+  - id: generation-invoke
+    effect: allow
+    permission: generation.invoke
+    roles:
+      - member
+      - developer
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 20
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: generation-codegen
+    effect: allow
+    permission: generation.codegen
+    roles:
+      - developer
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 30
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: documents-process
+    effect: allow
+    permission: documents.process
+    roles:
+      - member
+      - developer
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 20
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: mcp-invoke
+    effect: allow
+    permission: tools.mcp.invoke
+    roles:
+      - developer
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 30
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: shell-member-deny
+    effect: deny
+    permission: tools.shell.execute
+    roles:
+      - member
+      - developer
+    minimumLevel: 0
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: shell-operator-allow
+    effect: allow
+    permission: tools.shell.execute
+    roles:
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 60
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: computer-use
+    effect: allow
+    permission: computer.use
+    roles:
+      - developer
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 30
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: knowledge-read
+    effect: allow
+    permission: knowledge.read
+    roles:
+      - member
+      - developer
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 20
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: knowledge-manage
+    effect: allow
+    permission: knowledge.manage
+    roles:
+      - operator
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 60
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"
+
+  - id: settings-write
+    effect: allow
+    permission: admin.settings.write
+    roles:
+      - workspace_admin
+      - tenant_admin
+      - master
+    minimumLevel: 80
+    scope:
+      tenantIds:
+        - "*"
+      workspaceIds:
+        - "*"

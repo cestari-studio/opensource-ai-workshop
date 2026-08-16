@@ -1,0 +1,23 @@
+schemaVersion: 1.0.0
+
+profile: granite.mlx
+provider: mlx-lm
+
+model:
+  family: ibm-granite
+  logical: granite-4.1-3b
+  providerId: ibm-granite/granite-4.1-3b
+
+protocol: openai_compatible
+endpoint: http://127.0.0.1:8080/v1
+
+fallback:
+  enabled: false
+
+overlay:
+  owner: workshop
+  mutatesMelleaModelIdentifier: false
+
+certification:
+  status: pending
+  providerCertified: false

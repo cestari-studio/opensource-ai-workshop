@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "generative-computing/mellea",
+  "remote": "https://github.com/generative-computing/mellea.git",
+  "revision": "853b04fe572b3f8d2947c56750c883aeae12ea0b",
+  "mode": "read_only",
+  "requiredCleanWorktree": true
+}

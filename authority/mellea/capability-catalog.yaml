@@ -1,0 +1,105 @@
+schemaVersion: 1.0.0
+melleaRevision: 853b04fe572b3f8d2947c56750c883aeae12ea0b
+
+capabilities:
+  - id: generation.instruct
+    domain: generation
+    status: WORKSHOP_ADAPTED
+    source_paths:
+      - mellea/stdlib/session.py
+    surfaces:
+      - python
+      - api
+      - cli
+      - computer
+      - openwebui
+    authorization:
+      permission: generation.invoke
+    evidence:
+      source: true
+      documented: true
+      exampled: true
+      tested: true
+      provider_certified: false
+      workshop_materialized: false
+
+  - id: generation.chat
+    domain: generation
+    status: WORKSHOP_ADAPTED
+    source_paths:
+      - mellea/stdlib/session.py
+    surfaces:
+      - python
+      - api
+      - cli
+      - computer
+      - openwebui
+    authorization:
+      permission: generation.invoke
+    evidence:
+      source: true
+      documented: true
+      exampled: true
+      tested: true
+      provider_certified: false
+      workshop_materialized: false
+
+  - id: generation.generative_stub
+    domain: codegen
+    status: WORKSHOP_ADAPTED
+    source_paths:
+      - mellea/stdlib/components/genstub.py
+    surfaces:
+      - python
+      - cli
+      - computer
+    authorization:
+      permission: generation.codegen
+    evidence:
+      source: true
+      documented: true
+      exampled: true
+      tested: true
+      provider_certified: false
+      workshop_materialized: false
+
+  - id: documents.rich_document
+    domain: documents
+    status: WORKSHOP_ADAPTED
+    source_paths:
+      - mellea/stdlib/components/docs/richdocument.py
+    surfaces:
+      - python
+      - cli
+      - computer
+      - openwebui
+    authorization:
+      permission: documents.process
+    evidence:
+      source: true
+      documented: true
+      exampled: true
+      tested: true
+      provider_certified: false
+      workshop_materialized: false
+
+  - id: tools.mcp
+    domain: tools
+    status: WORKSHOP_ADAPTED
+    source_paths:
+      - mellea/stdlib/tools/mcp.py
+    surfaces:
+      - python
+      - api
+      - cli
+      - computer
+      - openwebui
+    authorization:
+      permission: tools.mcp.invoke
+    evidence:
+      source: true
+      documented: true
+      exampled: true
+      tested: true
+      provider_certified: false
+      workshop_materialized: false

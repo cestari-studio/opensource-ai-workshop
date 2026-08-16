@@ -1,0 +1,19 @@
+schemaVersion: 1.0.0
+
+policy: mellea-foundation-authority
+
+publicSurfaces:
+  - api
+  - cli
+  - computer
+  - openwebui
+
+blockingIssues:
+  - MISSING_PERMISSION
+  - UNKNOWN_PERMISSION
+  - UNKNOWN_SOURCE
+
+inputs:
+  sourceManifest: authority/mellea/source-manifest.json
+  capabilityCatalog: authority/mellea/capability-catalog.yaml
+  permissions: settings/authorization/permissions.yaml

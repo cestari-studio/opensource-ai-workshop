@@ -1,0 +1,12 @@
+schemaVersion: 1.0.0
+
+models:
+  granite.core:
+    family: ibm-granite
+    logicalModel: granite-4.1-3b
+    contextLength: 131072
+
+    providers:
+      - granite.ollama
+      - granite.mlx
+      - granite.unsloth

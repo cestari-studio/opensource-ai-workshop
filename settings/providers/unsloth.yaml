@@ -1,0 +1,23 @@
+schemaVersion: 1.0.0
+
+profile: granite.unsloth
+provider: unsloth-studio
+
+model:
+  family: ibm-granite
+  logical: granite-4.1-3b
+  providerId: unsloth/granite-4.1-3b-GGUF
+
+protocol: openai_compatible
+endpoint: http://127.0.0.1:8888/v1
+
+fallback:
+  enabled: false
+
+overlay:
+  owner: workshop
+  mutatesMelleaModelIdentifier: false
+
+certification:
+  status: pending
+  providerCertified: false
