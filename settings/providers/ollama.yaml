@@ -1,0 +1,22 @@
+schemaVersion: 1.0.0
+
+profile: granite.ollama
+provider: ollama
+
+model:
+  family: ibm-granite
+  logical: granite-4.1-3b
+  providerId: granite4.1:3b
+
+protocol: native_mellea_ollama
+
+fallback:
+  enabled: false
+
+overlay:
+  owner: workshop
+  mutatesMelleaModelIdentifier: false
+
+certification:
+  status: pending
+  providerCertified: false
