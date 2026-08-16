@@ -1,0 +1,20 @@
+schemaVersion: 1.0.0
+
+roles:
+  member:
+    description: Standard workspace member.
+
+  developer:
+    description: Builds generative programs and integrations.
+
+  operator:
+    description: Operates local runtime and execution surfaces.
+
+  workspace_admin:
+    description: Administers one workspace.
+
+  tenant_admin:
+    description: Administers resources across a tenant.
+
+  master:
+    description: Highest platform administration role.

@@ -1,0 +1,9 @@
+schemaVersion: 1.0.0
+
+levels:
+  member: 20
+  developer: 30
+  operator: 60
+  workspace_admin: 80
+  tenant_admin: 90
+  master: 100

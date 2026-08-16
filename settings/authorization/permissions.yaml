@@ -1,0 +1,29 @@
+schemaVersion: 1.0.0
+
+permissions:
+  generation.invoke:
+    domain: generation
+
+  generation.codegen:
+    domain: generation
+
+  documents.process:
+    domain: documents
+
+  tools.mcp.invoke:
+    domain: tools
+
+  tools.shell.execute:
+    domain: tools
+
+  computer.use:
+    domain: computer
+
+  knowledge.read:
+    domain: knowledge
+
+  knowledge.manage:
+    domain: knowledge
+
+  admin.settings.write:
+    domain: administration
