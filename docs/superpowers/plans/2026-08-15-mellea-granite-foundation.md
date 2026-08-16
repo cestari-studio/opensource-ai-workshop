@@ -115,6 +115,13 @@ dev = [
   "pytest>=8.4,<9",
 ]
 
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["workshop_tools"]
+
 [tool.uv]
 package = true
 ```
