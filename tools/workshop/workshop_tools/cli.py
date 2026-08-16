@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 
 import yaml
 
@@ -20,6 +21,11 @@ from .coverage import (
 )
 from .settings import (
     deep_merge,
+)
+from .providers import (
+    ProviderProfile,
+    get_provider_profile,
+    load_provider_registry,
 )
 
 
@@ -293,6 +299,93 @@ def settings_resolve(
     return 0
 
 
+def _provider_payload(
+    profile: ProviderProfile,
+) -> dict:
+    return {
+        "certificationStatus": (
+            profile.certification_status
+        ),
+        "endpoint": profile.endpoint,
+        "fallbackEnabled": (
+            profile.fallback_enabled
+        ),
+        "model": {
+            "logical": (
+                profile.model_logical
+            ),
+            "providerId": (
+                profile.model_provider_id
+            ),
+        },
+        "profile": profile.profile,
+        "protocol": profile.protocol,
+        "provider": profile.provider,
+        "providerCertified": (
+            profile.provider_certified
+        ),
+        "schemaVersion": (
+            profile.schema_version
+        ),
+    }
+
+
+def provider_list() -> int:
+    registry = load_provider_registry(
+        repository_root()
+    )
+
+    payload = [
+        _provider_payload(
+            profile
+        )
+        for profile in registry.values()
+    ]
+
+    print(
+        json.dumps(
+            payload,
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+    return 0
+
+
+def provider_inspect(
+    profile_name: str,
+) -> int:
+    registry = load_provider_registry(
+        repository_root()
+    )
+
+    try:
+        profile = get_provider_profile(
+            registry,
+            profile_name,
+        )
+    except KeyError as exc:
+        print(
+            exc.args[0],
+            file=sys.stderr,
+        )
+
+        return 1
+
+    print(
+        json.dumps(
+            _provider_payload(
+                profile
+            ),
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+    return 0
+
+
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(
         prog="workshopctl",
@@ -366,6 +459,31 @@ def parser() -> argparse.ArgumentParser:
         nargs="+",
     )
 
+    provider = sub.add_parser(
+        "provider"
+    )
+
+    provider_sub = (
+        provider.add_subparsers(
+            dest="action",
+            required=True,
+        )
+    )
+
+    provider_sub.add_parser(
+        "list"
+    )
+
+    inspect = (
+        provider_sub.add_parser(
+            "inspect"
+        )
+    )
+
+    inspect.add_argument(
+        "profile"
+    )
+
     return root
 
 
@@ -397,6 +515,24 @@ def main() -> None:
         raise SystemExit(
             settings_resolve(
                 args.files
+            )
+        )
+
+    if (
+        args.domain == "provider"
+        and args.action == "list"
+    ):
+        raise SystemExit(
+            provider_list()
+        )
+
+    if (
+        args.domain == "provider"
+        and args.action == "inspect"
+    ):
+        raise SystemExit(
+            provider_inspect(
+                args.profile
             )
         )
 
