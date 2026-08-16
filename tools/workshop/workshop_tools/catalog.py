@@ -5,6 +5,9 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from typing import Any
+
+import yaml
 
 
 EXCLUDED_DIRS = {
@@ -121,3 +124,132 @@ def write_source_manifest(
         )
         + "\n"
     )
+
+
+
+@dataclass(frozen=True)
+class Capability:
+    id: str
+    domain: str
+    status: str
+    source_paths: tuple[str, ...]
+    surfaces: tuple[str, ...]
+    evidence: dict[str, bool]
+    authorization_permission: str | None
+
+
+def load_capability_catalog(
+    path: Path,
+) -> list[Capability]:
+    raw: dict[str, Any] = (
+        yaml.safe_load(path.read_text())
+        or {}
+    )
+
+    result: list[Capability] = []
+
+    for row in raw.get(
+        "capabilities",
+        [],
+    ):
+        authorization = (
+            row.get("authorization")
+            or {}
+        )
+
+        result.append(
+            Capability(
+                id=str(row["id"]),
+                domain=str(row["domain"]),
+                status=str(row["status"]),
+                source_paths=tuple(
+                    str(value)
+                    for value
+                    in row.get(
+                        "source_paths",
+                        [],
+                    )
+                ),
+                surfaces=tuple(
+                    str(value)
+                    for value
+                    in row.get(
+                        "surfaces",
+                        [],
+                    )
+                ),
+                evidence={
+                    str(key): bool(value)
+                    for key, value
+                    in (
+                        row.get("evidence")
+                        or {}
+                    ).items()
+                },
+                authorization_permission=(
+                    str(
+                        authorization[
+                            "permission"
+                        ]
+                    )
+                    if authorization.get(
+                        "permission"
+                    )
+                    is not None
+                    else None
+                ),
+            )
+        )
+
+    return result
+
+
+def validate_capability_catalog(
+    capabilities: list[Capability],
+    source_paths: set[str],
+) -> list[str]:
+    errors: list[str] = []
+    seen: set[str] = set()
+
+    public_surfaces = {
+        "api",
+        "cli",
+        "computer",
+        "openwebui",
+    }
+
+    for capability in capabilities:
+        if capability.id in seen:
+            errors.append(
+                f"{capability.id}: "
+                "duplicate capability id"
+            )
+
+        seen.add(capability.id)
+
+        for source_path in (
+            capability.source_paths
+        ):
+            if source_path not in source_paths:
+                errors.append(
+                    f"{capability.id}: "
+                    "unknown source path "
+                    f"{source_path}"
+                )
+
+        if (
+            public_surfaces.intersection(
+                capability.surfaces
+            )
+            and not (
+                capability
+                .authorization_permission
+            )
+        ):
+            errors.append(
+                f"{capability.id}: "
+                "public surface requires "
+                "authorization.permission"
+            )
+
+    return errors
