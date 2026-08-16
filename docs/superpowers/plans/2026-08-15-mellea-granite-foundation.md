@@ -358,7 +358,7 @@ def test_discovery_is_sorted_and_classifies_files(tmp_path: Path) -> None:
 
     rows = discover_source(tmp_path)
     assert [row.path for row in rows] == sorted(row.path for row in rows)
-    assert [row.kind for row in rows] == ["documentation", "example", "source", "test"]
+    assert [row.kind for row in rows] == ["example", "documentation", "source", "test"]
     assert all(len(row.sha256) == 64 for row in rows)
     assert not any(row.path.startswith(".git/") for row in rows)
 

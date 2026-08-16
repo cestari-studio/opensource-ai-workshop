@@ -84,3 +84,9 @@ Session.vim
 *~
 tags
 venv
+
+# Python generated artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
