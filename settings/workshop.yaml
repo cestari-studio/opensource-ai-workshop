@@ -1,0 +1,16 @@
+schemaVersion: 1.0.0
+
+runtimeFirst: true
+openWebUIRequiredForCore: false
+
+providerFallback:
+  enabled: false
+
+authorization:
+  mode: rbac_abac
+  inheritance:
+    - global
+    - tenant
+    - workspace
+    - role_level
+    - user
